@@ -1,6 +1,8 @@
 var express = require('express'),
 	moment = require('moment'),
 	chalk = require('chalk'),
+	api = require('./api'),
+	bodyParser = require('body-parser'),
 	app = express();
 
 
@@ -10,9 +12,12 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.get('/', function(req,res){
-	res.send('Hello World');
-});
+app.use(bodyParser.json());
+
+app.use('/api', api);
+//app.use(express.static(__dirname + '/api'));
+
+app.get('/', express.static('site'));
 
 var server = app.listen(3000, function(){
 
