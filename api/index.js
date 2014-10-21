@@ -9,4 +9,14 @@ router.get('/', function(req,res,next){
 	});
 });
 
+router.post('/stuff', function (req,res,next) {
+	fs.writeFile(__dirname + '/../data/stuff.json', JSON.stringify(req.body), function(err){
+		if(err){
+			res.status(500).send(JSON.stringify(err));
+		} else {
+			res.status(204).send('');
+		}
+	});
+});
+
 module.exports = router;
